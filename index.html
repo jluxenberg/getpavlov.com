@@ -22,11 +22,19 @@
               width: 500px;
               margin: auto;
           }
+          
+          input, button {
+              font-size: 20px;
+          }
       }
       
       @media screen and (max-width: 500px) {
           body {
-              margin: 1em;
+              margin: 10px;
+          }
+          
+          input, button {
+              font-size: 16px;
           }
       }
       
@@ -65,7 +73,6 @@
       }
 
       .input-email {
-          font-size: 20px;
           line-height: 1.5;
           color: #495057;
           height: calc(1.5em + 1rem + 2px);
@@ -75,7 +82,6 @@
       .button-signup {
           padding: 10px 15px;
           line-height: 1.5;
-          font-size: 20px;
       }
 
       .form-submit-error {
@@ -137,7 +143,7 @@
 
       <h2>A game for your dog to learn</h2>
       <p>Record a sample of the sounds that trigger your dog's anxiety using your phone, then start a training session in the app. The app will play a sound and dispense a treat, teaching your dog to associate the trigger sound with a treat!</p>
-      <div class="flex-col text-align-center" style="box-shadow:7px 7px gray; background-color: aliceblue; padding: 10px; margin: 1em 0;">
+      <div class="flex-col text-align-center" style="box-shadow:7px 7px gray; background-color: aliceblue; padding: 10px; margin: 1.5em 0;">
         <span><b>We are now testing Pavlov with dog owners</b><br/><br/>Sign up to beta test our mobile app and improve your dog's behavior today!</span>
         <form onsubmit="return dosignup(event)">
           <div style="margin-top: 15px;display: flex;">

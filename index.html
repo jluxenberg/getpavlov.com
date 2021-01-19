@@ -3,7 +3,18 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
+    <title>Pavlov -- training for a calmer pet</title>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WG5ZG8ETFK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      gtag('config', 'G-WG5ZG8ETFK');
+    </script>
+    
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     <style>
       @media screen and (min-width: 600px) {
@@ -72,45 +83,46 @@
       }
     </style>
     <script>
+      var contact_email = atob("amFyZWRAZ2V0cGF2bG92LmNvbQ==");
+      var mail_to_link = "<a href='mailto:" + contact_email + "'>" +  contact_email + "</a>";
+      
       function dosignup(e) {
         var form = e.target
         var email = form['email'].value;
+        gtag('event', 'signup_attempt');
 
         function handleError() {
-          form.parentNode.innerHTML = "<span class='form-submit-error'>Sorry, there was an error signing you up as a beta tester.<br/><br/>Please send an email to <a href='mailto:jared@getpavlov.com'>jared@getpavlov.com</a> and we will get you set up with access to the app.</span>";
+          gtag('event', 'signup_error');
+          form.parentNode.innerHTML = "<span class='form-submit-error'>Sorry, there was an error signing you up as a beta tester.<br/><br/>Please send an email to " + mail_to_link + " and we will get you set up with access to the app.</span>";
         }
         
         fetch("https://app.flowdash.com/api/v1/workflows/ajQXzGeO73IVWKixEo1cFGVU/tasks", {
           method:"POST",
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ "Email": email})
-        }).then( function(resp) { if(resp.status !== 200) { throw "Non-200 response" } else {          form.parentNode.innerHTML = "<span class='form-submit-successful'>Thank you for signing up!<br/><br/>We will be sending you an email shortly explaining how to get started training with Pavlov.</span>";
-                                                                                            } }).catch( handleError )
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ "Email": email })
+        }).then( function(resp) {
+          if(resp.status !== 200) { throw "Non-200 response" }
+          else {
+            gtag('event', 'signup_success');
+            form.parentNode.innerHTML = "<span class='form-submit-successful'>Thank you for signing up!<br/><br/>We will be sending you an email shortly explaining how to get started training with Pavlov.</span>";
+          }
+        }).catch( handleError )
 
         return false
       }
-    </script>
+      </script>
   </head>
   <body>
-    <div class="flex-col content">
-      <div class="flex-col">
-        
-        <div style="margin-bottom: 0.25em;text-align: center;margin: 0.2em;">
-          <div style="display: flex; justify-content: center;">
-            <div style="border: 1px solid #fdcd75;
-                        justify-content: center;
-                        padding: 3px;
-                        border-radius: 10px 0 0 10px;
-                        ">
-              <img style="margin-bottom: 0.5em;margin: auto;display: block;margin-top: 15px;" src="img/pavlov-dog.svg" height="50">
-            </div>
-            <span class="pavlov-logotype" style="border-radius: 0 10px 10px 0;">Pavlov</span>
-          </div>
-        </div>
-        <h3 style="margin-top: 0;">Train your dog to bark less often with an "audio workout"</h3>
+    <div class="flex-col">
+      <img style="margin-bottom: 0.5em;" src="img/pavlov-dog.svg" height="200">
+      <div style="margin-bottom: 0.25em; text-align: center;           margin: 0.2em;">
+        <span class="pavlov-logotype">Pavlov</span>
       </div>
-      <div class="flex-col text-align-center" style="box-shadow:7px 7px gray; background-color: aliceblue; padding: 10px 3%; margin: 1em 0; margin-bottom: 1.25em;">
-        <span>Sign up to download our mobile app and improve your dog's behavior today!</span>
+      <!--<h3 style="margin-top: 0;">An audio workout for your furry companion</h3>-->
+      <h3 style="margin-top: 0.25em;">Train your dog with an "audio workout"<br/>reducing anxiety and barking</h3>
+    </div>
+    <div class="flex-col text-align-center" style="box-shadow:7px 7px gray; background-color: aliceblue; padding: 10px 3%; margin: 1em 0; margin-bottom: 1.25em;">
+      <span>Sign up to download our mobile app and improve your dog's behavior today!</span>
         <form onsubmit="return dosignup(event)">
           <div style="margin-top: 15px;display: flex;">
             <input class="input-email" style="flex: 1; margin-right: 10px; text-align: center;" type="email" name="email" placeholder="Enter your email here" /> <button type="submit" class="button-signup">Sign&nbsp;up</button>

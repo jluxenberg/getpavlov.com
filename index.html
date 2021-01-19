@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <style>
+      @media screen and (min-width: 600px) {
+          body {
+              width: 600px;
+              margin: auto;
+          }
+      }
+      
+      @media screen and (max-width: 600px) {
+          body {
+              margin: 1em;
+          }
+      }
+      
+      body {
+          font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+          
+      }
+      h1, h2, h3 {
+          text-align: center;
+          margin: 0.25em 0;
+      }
+
+      .flex-col {
+          display: flex;
+          flex-direction: column;
+      }
+
+      .flex-row {
+          display: flex;
+          flex-direction: row;
+      }
+
+      .content {
+          padding-top: 0.25em;
+      }
+
+      span.pavlov-logotype {
+          background-color: #fdcd75;
+          padding: 10px 20px;
+          display: inline-block;
+          font-size: 60px;
+      }
+
+      .text-align-center {
+          text-align: center;
+      }
+
+      .input-email {
+          font-size: 20px;
+          line-height: 1.5;
+          color: #495057;
+          height: calc(1.5em + 1rem + 2px);
+          min-width: 0;
+      }
+
+      .button-signup {
+          padding: 10px 15px;
+          line-height: 1.5;
+          font-size: 20px;
+      }
+
+      .form-submit-error {
+          color: red;
+      }
+    </style>
+    <script>
+      function dosignup(e) {
+        var form = e.target
+        var email = form['email'].value;
+
+        function handleError() {
+          form.parentNode.innerHTML = "<span class='form-submit-error'>Sorry, there was an error signing you up as a beta tester.<br/><br/>Please send an email to <a href='mailto:jared@getpavlov.com'>jared@getpavlov.com</a> and we will get you set up with access to the app.</span>";
+        }
+        
+        fetch("https://app.flowdash.com/api/v1/workflows/ajQXzGeO73IVWKixEo1cFGVU/tasks", {
+          method:"POST",
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ "Email": email})
+        }).then( function(resp) { if(resp.status !== 200) { throw "Non-200 response" } else {          form.parentNode.innerHTML = "<span class='form-submit-successful'>Thank you for signing up!<br/><br/>We will be sending you an email shortly explaining how to get started training with Pavlov.</span>";
+                                                                                            } }).catch( handleError )
+
+        return false
+      }
+    </script>
+  </head>
+  <body>
+    <div class="flex-col content">
+      <div class="flex-col">
+        
+        <div style="margin-bottom: 0.25em;text-align: center;margin: 0.2em;">
+          <div style="display: flex; justify-content: center;">
+            <div style="border: 1px solid #fdcd75;
+                        justify-content: center;
+                        padding: 3px;
+                        border-radius: 10px 0 0 10px;
+                        ">
+              <img style="margin-bottom: 0.5em;margin: auto;display: block;margin-top: 15px;" src="img/pavlov-dog.svg" height="50">
+            </div>
+            <span class="pavlov-logotype" style="border-radius: 0 10px 10px 0;">Pavlov</span>
+          </div>
+        </div>
+        <h3 style="margin-top: 0;">Train your dog to bark less often with an "audio workout"</h3>
+      </div>
+      <div class="flex-col text-align-center" style="box-shadow:7px 7px gray; background-color: aliceblue; padding: 10px 3%; margin: 1em 0; margin-bottom: 1.25em;">
+        <span>Sign up to download our mobile app and improve your dog's behavior today!</span>
+        <form onsubmit="return dosignup(event)">
+          <div style="margin-top: 15px;display: flex;">
+            <input class="input-email" style="flex: 1; margin-right: 10px; text-align: center;" type="email" name="email" placeholder="Enter your email here" /> <button type="submit" class="button-signup">Sign&nbsp;up</button>
+          </div>
+        </form>
+      </div>
+      <h2>Scary sounds</h2>
+      <p>Fireworks, doors opening and closing, metal clanging, people talking; noises that fade into the background for humans can have a totally different impact on our furry friends.</p>
+
+      <h2>No more fear</h2>
+      <p>Pavlov helps your dog learn to tolerate sounds they find scary or threatening. It's like a workout for your dog!</p>
+
+      <h2>A game for your dog to learn</h2>
+      <p>Simply record a sample of the sounds that trigger your dog's anxiety using your phone, then start a training session in the app. The app will play a sound and dispense a treat, teaching your dog to associate the trigger sound with a tasty treat!</p>
+      <p>During the workout, the delay between the trigger sound and the treat is slowly reduced. This gives your dog a mental workout and keeps her from becoming scared during the training process. This is key to a successful training session, because she can only learn when she feels safe.</p>
+      
+      <!--<h2>Improve your dog's behavior today</h2>
+      <p>We are currently testing Pavlov with dog owners. If you'd like to be part of the beta test and get access to the app now, enter your email. We will not contact you for any reason other than to give you access to the app.</p>-->
+      <div class="flex-col text-align-center" style="box-shadow:7px 7px gray; background-color: aliceblue; padding: 10px; margin: 1em 0;">
+        <span><b>We are now testing Pavlov with dog owners</b><br/><br/>Sign up to beta test our mobile app and improve your dog's behavior today!</span>
+        <form onsubmit="return dosignup(event)">
+          <div style="margin-top: 15px;display: flex;">
+            <input class="input-email" style="flex: 1; margin-right: 10px; text-align: center;" type="email" name="email" placeholder="Enter your email here" /> <button type="submit" class="button-signup">Sign&nbsp;up</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
